@@ -1,0 +1,26 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Build') {
+      steps {
+        // Checkout the source code from the repository
+        git 'https://github.com/parryk303/jenkins-practice.git'
+
+        // Build the Docker image
+        script {
+          docker.build('jenkins-practice')
+        }
+      }
+    }
+
+    stage('Run') {
+      steps {
+        // Run a Docker container
+        script {
+          docker.image('jenkins-practice').run()
+        }
+      }
+    }
+  }
+}
